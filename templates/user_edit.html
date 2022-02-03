@@ -3,6 +3,7 @@
 {% block content %}
 <h1>Edit a user</h1>
 <form method= "POST">
+    <!-- add id to input, type text is default -->
     <label for="first-name">First Name</label>
     <input name ="first-name" type="text" value={{user.first_name}}>
 
@@ -11,8 +12,8 @@
 
     <label for="image-url">Image URL</label>
     <input name ="image-url" type="text" value={{user.image_url}}>
-
+    <!-- change button to a tag bootstrap buttons, change inputs to buttons-->
     <button href='/'>Cancel</button>
-    <input type="submit" action = 'users/{{user.id}}/edit' value="Save">
+    <input type="submit" value="Save">
 </form>
 {% endblock %}

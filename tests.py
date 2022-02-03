@@ -79,14 +79,17 @@ class UserViewTestCase(TestCase):
                 follow_redirects=True,
             )
             html = resp.get_data(as_text=True)
+            # add test for errors after adding error handling
             self.assertIn("new_first_name", html)
             self.assertIn("new_last_name", html)
 
     def test_display_user_info(self):
         """Tests display user info page"""
+
         with self.client as c:
             resp = c.get(f"users/{self.user_id}")
             html = resp.get_data(as_text=True)
+            # REVIEW: also check something else, more unique to page
             self.assertIn("test_first", html)
             self.assertIn("test_last", html)
 

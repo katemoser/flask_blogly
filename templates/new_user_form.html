@@ -4,15 +4,16 @@
 <h1>Create a user</h1>
 <form method = "POST" >
     <!-- NEW USER FORM DO NOT DELETE -->
+    <!-- Put in ids for input -->
     <label for="first-name">First Name</label>
-    <input name ="first-name" type="text" placceholder="Enter a first name">
+    <input name ="first-name" type="text" placeholder="Enter a first name">
 
     <label for="last-name">Last Name</label>
-    <input name ="last-name" type="text" placceholder="Enter a last name">
+    <input name ="last-name" type="text" placeholder="Enter a last name">
 
     <label for="image-url">Image URL</label>
-    <input name ="image-url" type="text" placceholder="Provide and image of this user">
+    <input name ="image-url" type="text" placeholder="Provide and image of this user">
 
-    <input type="submit" action = '/users/new/' value="Add">
+    <input type="submit" value="Add">
 </form>
 {% endblock %}
