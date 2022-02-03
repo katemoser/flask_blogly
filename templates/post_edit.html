@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Post</h1>
+<form method = "POST" action="/users/{{user_id}}">
+    <!-- NEW POST FORM DO NOT DELETE -->
+    <!-- Put in ids for input -->
+    <label for="title">Title</label>
+    <input id ="title" name ="title" type="text" >
+
+    <label for="content">Content</label>
+    <textarea id ="content" name ="content"></textarea>
+
+    <a class ="btn btn-primary" href='/users/{{user.id}}'>Cancel</a>
+    <button type="submit">Edit</button>
+</form>
+{% endblock %}

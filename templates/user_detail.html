@@ -9,4 +9,13 @@
     <button type="submit">Delete</button>
 </form>
 
+<h2>Posts</h2>
+
+<!-- Loop of posts for this user-->
+<ul>
+{{% for post in posts %}}
+    <li>This is a post</li>
+{{% endfor %}}
+</ul>
+
 {% endblock %}

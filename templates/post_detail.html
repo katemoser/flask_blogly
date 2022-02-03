@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{post.title}}</h1>
+<!-- add alt tag to img -->
+<p>{{post.content}}</p>
+
+<p class = "footer">By {{user.first_name}} {{user.last_name}}</p>
+
+
+<a class="btn btn-primary" href='/users/{{user_id}}' role="button">Cancel</a>
+<a class="btn btn-primary" href='/posts/{{post.id}}/edit' role="button">Edit</a>
+<form method = 'POST' action = '/users/{{post.id}}/delete'>
+    <button type="submit">Delete</button>
+</form>
+
+{% endblock %}
