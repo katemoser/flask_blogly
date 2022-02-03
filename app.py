@@ -56,3 +56,22 @@ def display_edit_user_form(user_id):
     """"""
     user = User.query.get_or_404(user_id)
     return render_template("user_edit.html", user=user)
+
+@app.post("/users/<int:user_id>/edit")
+def process_edit_info(user_id):
+    """"""
+    response = request.form
+    print(f"*********************************************{response}")
+    first_name = response["first-name"]
+    last_name = response["last-name"]
+    image_url = response["image-url"]
+
+    user = User.query.get_or_404(user_id)
+    user.first_name =first_name
+    user.last_name = last_name
+    user.image_url = image_url
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect('/users')
