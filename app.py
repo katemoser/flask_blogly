@@ -12,7 +12,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 connect_db(app)
 db.create_all()
 
-
+# ***************DISPLAY USERS*********************
 @app.get("/")
 def redirect_to_users():
     return redirect("/users")
@@ -24,7 +24,7 @@ def display_all_users():
     users = User.query.all()
     return render_template("users.html", users=users)
 
-
+# ***************NEW USER**************************
 @app.get("/users/new")
 def display_new_user_form():
     return render_template("new_user_form.html")
@@ -46,14 +46,14 @@ def process_form_and_add_user():
 
     return redirect("/users")
 
-
+# ***************DISPLAY USER*********************
 @app.get("/users/<int:user_id>")
 def display_user_info(user_id):
     """Retrieve user data via id and display user info"""
     user = User.query.get_or_404(user_id)
     return render_template("user_detail.html", user=user)
 
-
+# ***************EDIT USER************************
 @app.get("/users/<int:user_id>/edit")
 def display_edit_user_form(user_id):
     """Display edit user form"""
@@ -80,7 +80,7 @@ def process_edit_info(user_id):
 
     return redirect("/users")
 
-
+# ***************DELETE USER*********************
 @app.post("/users/<int:user_id>/delete")
 def delete_user(user_id):
     """Delete user from db"""
