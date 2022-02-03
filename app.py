@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template
 from models import db, connect_db, User
 
 app = Flask(__name__)
@@ -13,7 +13,14 @@ db.create_all()
 
 @app.get('/')
 def redirect_to_users():
-    return render_template('users.html')
+    return redirect('/users')
+
+
+@app.get('/users')
+def show_all_users():
+    """Retrieve user names and list"""
+    users = User.query.all()
+    return render_template("users.html", users=users)
 
 
 
