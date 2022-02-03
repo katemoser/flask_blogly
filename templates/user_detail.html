@@ -4,7 +4,8 @@
 <h1>{{user.first_name}} {{user.last_name}}</h1>
 <img src={{user.image_url}}>
 <a class="btn btn-primary" href='/users/{{user.id}}/edit' role="button">Edit User</a>
-
-<button href= '/'>Delete</button>
+<form method = 'POST' action = '/users/{{user.id}}/delete'>
+<button type="submit">Delete</button>
+</form>
 
 {% endblock %}
