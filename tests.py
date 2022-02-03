@@ -18,6 +18,7 @@ app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 
 db.create_all()
 
+
 class UserViewTestCase(TestCase):
     """Test views for users."""
 
@@ -25,7 +26,7 @@ class UserViewTestCase(TestCase):
         """Create test client, add sample data."""
 
         # As you add more models later in the exercise, you'll want to delete
-        # all of their records before each test just as we're doing with the 
+        # all of their records before each test just as we're doing with the
         # User model below.
         User.query.delete()
 
@@ -41,10 +42,10 @@ class UserViewTestCase(TestCase):
         db.session.add_all([test_user, second_user])
         db.session.commit()
 
-        # We can hold onto our test_user's id by attaching it to self (which is 
-        # accessible throughout this test class). This way, we'll be able to 
-        # rely on this user in our tests without needing to know the numeric 
-        # value of their id, since it will change each time our tests are run. 
+        # We can hold onto our test_user's id by attaching it to self (which is
+        # accessible throughout this test class). This way, we'll be able to
+        # rely on this user in our tests without needing to know the numeric
+        # value of their id, since it will change each time our tests are run.
         self.user_id = test_user.id
 
     def tearDown(self):
@@ -70,10 +71,35 @@ class UserViewTestCase(TestCase):
     def test_process_form_and_add_user(self):
         """Tests process form and add user"""
         with self.client as c:
-            resp = c.post("/users/new",data ={"first-name":'new_first_name', "last-name":'new_last_name',"image-url":"https://media.wired.co.uk/photos/607d91994d40fbb952b6ad64/4:3/w_2664,h_1998,c_limit/wired-meme-nft-brian.jpg"} , follow_redirects=True)
+            resp = c.post("/users/new", data={"first-name": 'new_first_name', "last-name": 'new_last_name',
+                          "image-url": "https://media.wired.co.uk/photos/607d91994d40fbb952b6ad64/4:3/w_2664,h_1998,c_limit/wired-meme-nft-brian.jpg"}, follow_redirects=True)
             html = resp.get_data(as_text=True)
             self.assertIn("new_first_name", html)
             self.assertIn("new_last_name", html)
 
-    
-            
+    # def test_edit_user(self):
+    #     """Tests edit user form submission"""
+    #     with self.client as c:
+    #         resp = c.post("/users/1/edit", data={"first-name":'edit_first', "last-name":'edit_last',"image-url":"https://media.wired.co.uk/photos/607d91994d40fbb952b6ad64/4:3/w_2664,h_1998,c_limit/wired-meme-nft-brian.jpg"} , follow_redirects=True)
+    #         print (f"********************************RESPONSE = {resp}")
+    #         html = resp.get_data(as_text = True)
+    #         self.assertIn("edit_first", html)
+    #         self.assertIn("edit_last", html)
+
+    def test_display_user_info(self):
+        """Tests display user info page"""
+        with self.client as c:
+            resp = c.get(f"users/{1}")
+            html = resp.get_data(as_text = True)
+            self.assertIn("test_first", html)
+            self.assertIn("test_last", html)
+
+
+
+    # def test_process_form_and_delete(self):
+    #     """Tests process form and delete user"""
+    #     with self.client as c:
+    #         resp = c.post("users/1/delete", follow_redirects = True)
+    #         html = resp.get_data(as_text = True)
+    #         self.assertNotIn("test_first", html)
+    #         self.assertNotIn("test_last", html)
