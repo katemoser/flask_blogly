@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>NAME HERE</h1>
-<img href=''>
+<h1>{{user.first_name}} {{user.last_name}}</h1>
+<img src={{user.image_url}}>
+<a class="btn btn-primary" href='/users/{{user.id}}/edit' role="button">Edit User</a>
 
-<button href= '/user_edit'>Edit</button>
 <button href= '/'>Delete</button>
 
 {% endblock %}

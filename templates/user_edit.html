@@ -4,13 +4,13 @@
 <h1>Edit a user</h1>
 <form>
     <label for="first-name">First Name</label>
-    <input name ="first-name" type="text" default="FIRST NAME">
+    <input name ="first-name" type="text" value={{user.first_name}}>
 
     <label for="last-name">Last Name</label>
-    <input name ="last-name" type="text" default="LAST NAME">
+    <input name ="last-name" type="text" value={{user.last_name}}>
 
     <label for="image-url">Image URL</label>
-    <input name ="image-url" type="text" default="IMG URL">
+    <input name ="image-url" type="text" value={{user.image_url}}>
 
     <button href='/'>Cancel</button>
     <input type="submit" value="Save">
