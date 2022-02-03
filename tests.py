@@ -58,3 +58,22 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
             self.assertIn("test_first", html)
             self.assertIn("test_last", html)
+
+    def test_new_user_form(self):
+        """Tests request to display new user form"""
+        with self.client as c:
+            resp = c.get("/users/new")
+            self.assertEqual(resp.status_code, 200)
+            html = resp.get_data(as_text=True)
+            self.assertIn("NEW USER FORM DO NOT DELETE", html)
+
+    def test_process_form_and_add_user(self):
+        """Tests process form and add user"""
+        with self.client as c:
+            resp = c.post("/users/new",data ={"first-name":'new_first_name', "last-name":'new_last_name',"image-url":"https://media.wired.co.uk/photos/607d91994d40fbb952b6ad64/4:3/w_2664,h_1998,c_limit/wired-meme-nft-brian.jpg"} , follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            self.assertIn("new_first_name", html)
+            self.assertIn("new_last_name", html)
+
+    
+            
