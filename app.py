@@ -2,7 +2,7 @@
 
 from http.client import ResponseNotReady
 from flask import Flask, redirect, render_template, request
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///blogly"
@@ -12,6 +12,8 @@ app.config["SQLALCHEMY_ECHO"] = True
 connect_db(app)
 db.create_all()
 # **************************ALL USER ROUTES****************************************************************
+
+
 # ***************DISPLAY USERS*********************
 @app.get("/")
 def redirect_to_users():
@@ -99,3 +101,35 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect("/users")
+
+
+# **************************************ALL POSTS ROUTES****************************************************************
+@app.get("/users/<int:user_id>/posts/new")
+def display_new_post_from(user_id):
+    """Display new post form for user"""
+
+    user = User.query.get_or_404(user_id)
+    return render_template("new_post_form.html", user=user)
+
+@app.post("/users/<int:user_id>/posts/new")
+def process_new_post_form(user_id):
+    """Retrieve new post form data, add to db"""
+
+    data = request.form
+    # TODO: check for empty string, check and use flash message
+    title = data["title"]
+    content = data["content"]
+    
+    post = Post(title=title, content=content, user_id=user_id)
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/users/{user_id}")
+
+@app.get("/posts/<int:post_id>")
+def display_post(post_id):
+    """Display single post"""
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get_or_404(post.user_id)
+    return render_template("post_detail.html", post=post, user=user)

@@ -13,9 +13,9 @@
 
 <!-- Loop of posts for this user-->
 <ul>
-{{% for post in posts %}}
-    <li>This is a post</li>
-{{% endfor %}}
+{% for post in user.posts %}
+    <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+{% endfor %}
 </ul>
-
+<a class="btn btn-primary" href='/users/{{user.id}}/posts/new' role="button">Add Post</a>
 {% endblock %}

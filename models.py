@@ -1,5 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy, func
-
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
+from datetime import datetime
 
 DEFAULT_IMAGE_URL = "https://media.wired.co.uk/photos/607d91994d40fbb952b6ad64/4:3/w_2664,h_1998,c_limit/wired-meme-nft-brian.jpg"
 db = SQLAlchemy()
@@ -37,9 +38,9 @@ class Post(db.Model):
     title = db.Column(db.String(100))
     content = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime,
-                           timezone=True,
+                           
                            default=func.current_timestamp())
-    user_id = db.Column(db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     user = db.relationship('User',
                            backref='posts')
