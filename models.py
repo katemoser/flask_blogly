@@ -29,15 +29,18 @@ class Post(db.Model):
 
     __tablename__ = 'posts'
 
-    id = db.Column(db.Integer,
-                        primary_key=True,
-                        autoincrement=True)
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True)
+
     title = db.Column(db.String(100))
+    # content not nullable, may be ""
     content = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, 
-                        timezone = True, 
-                        default = func.current_timestamp())
-    user_id = db.Column(db.ForeignKey("users.id"))
+    created_at = db.Column(
+        db.DateTime,
+        default=func.current_timestamp())
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     user = db.relationship('User',
                         backref='posts')
