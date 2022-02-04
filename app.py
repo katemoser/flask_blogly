@@ -133,3 +133,45 @@ def display_post(post_id):
     post = Post.query.get_or_404(post_id)
     user = User.query.get_or_404(post.user_id)
     return render_template("post_detail.html", post=post, user=user)
+
+@app.get("/posts/<int:post_id>/edit")
+def display_edit_post_form(post_id):
+    """Displays post edit form"""
+    post = Post.query.get_or_404(post_id)
+    return render_template("post_edit.html", post=post)
+
+@app.post("/posts/<int:post_id>/edit")
+def process_edit_post_form(post_id):
+    """processes edit form and redirects to post detail page"""
+
+    post = Post.query.get_or_404(post_id)
+    data = request.form
+
+    post.title = data["title"]
+    post.content = data["content"]
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/posts/{post_id}")
+
+@app.post("/posts/<int:post_id>/delete")
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(f"/users/{post.user_id}")
+
+
+
+
+# @app.post("/users/<int:user_id>/delete")
+# def delete_user(user_id):
+#     """Delete user from db"""
+
+#     user = User.query.get_or_404(user_id)
+#     db.session.delete(user)
+#     db.session.commit()
+
+#     return redirect("/users")

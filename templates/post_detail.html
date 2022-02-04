@@ -8,9 +8,9 @@
 <p class = "footer">By {{user.first_name}} {{user.last_name}}</p>
 
 
-<a class="btn btn-primary" href='/users/{{user_id}}' role="button">Cancel</a>
+<a class="btn btn-primary" href='/users/{{user.id}}' role="button">Cancel</a>
 <a class="btn btn-primary" href='/posts/{{post.id}}/edit' role="button">Edit</a>
-<form method = 'POST' action = '/users/{{post.id}}/delete'>
+<form method = 'POST' action = '/posts/{{post.id}}/delete'>
     <button type="submit">Delete</button>
 </form>
 

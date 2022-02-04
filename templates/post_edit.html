@@ -2,16 +2,16 @@
 
 {% block content %}
 <h1>Edit Post</h1>
-<form method = "POST" action="/users/{{user_id}}">
+<form method = "POST" >
     <!-- NEW POST FORM DO NOT DELETE -->
     <!-- Put in ids for input -->
     <label for="title">Title</label>
-    <input id ="title" name ="title" type="text" >
+    <input id ="title" name ="title" type="text" value={{post.title}}>
 
     <label for="content">Content</label>
-    <textarea id ="content" name ="content"></textarea>
+    <textarea id ="content" name ="content">{{post.content}}</textarea>
 
-    <a class ="btn btn-primary" href='/users/{{user.id}}'>Cancel</a>
+    <a class ="btn btn-primary" href='/users/{{post.user_id}}'>Cancel</a>
     <button type="submit">Edit</button>
 </form>
 {% endblock %}
